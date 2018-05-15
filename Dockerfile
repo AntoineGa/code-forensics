@@ -27,10 +27,13 @@ RUN find . -name '*standalone*' -exec bash -c 'mv $0 codemaat-standalone.jar' {}
 
 RUN mkdir /forensics
 WORKDIR /forensics
-RUN npm -g install gulp  code-forensics
+RUN npm install -g gulpjs/gulp.git#4.0 
+RUN npm install code-forensics
 ADD gulpfile.js /forensics/gulpfile.js
-ENTRYPOINT ["gulp"]
-
+ADD run-analysis.sh /run-analysis.sh
+RUN chmod a+x /run-analysis.sh
+ENTRYPOINT ["/run-analysis.sh"]
+CMD ["hotspot-analysis commit-message-analysis sloc-trend-analysis sum-of-coupling-analysis temporal-coupling-analysis system-evolution-analysis developer-effort-analysis developer-coupling-analysis knowledge-map-analysis"]
 # ENTRYPOINT ["java","-jar","code-maat-0.9.2-SNAPSHOT-standalone.jar"]
 #ENTRYPOINT ["java","-jar","codemaat-standalone.jar"]
 # ENTRYPOINT ["/usr/bin/lein", "run"]
