@@ -1,13 +1,12 @@
 require('code-forensics').configure(
   {
     repository: {
-      rootPath: "/repository"
-    },
-      excludePaths: [
-        '**/target/*',
+      rootPath: "/repository",
+       excludePaths: [
+        '**/target/**',
         '**/*.jar',
         '**/*.class',
-        '**/node_modules'
+        '**/node_modules/**'
       ]
     },
     {
